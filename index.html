@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <title>Frontend Mentor | Age calculator app</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="toggle-icon">
+      <i class="fa-solid fa-bars fa-xl"></i>
+    </div>
+    <main role="main" class="container">
+      <form>
+        <div class="form-item">
+          <label for="day">DAY</label>
+          <input
+            type="number"
+            class="date-input"
+            id="day"
+            min="1"
+            max="31"
+            data-max="31"
+            placeholder="DD"
+          />
+          <p class="error-day error"></p>
+        </div>
+        <div class="form-item">
+          <label for="month">MONTH</label>
+          <input
+            type="number"
+            class="date-input"
+            id="month"
+            min="1"
+            max="12"
+            data-max="12"
+            placeholder="MM"
+          />
+          <p class="error-month error"></p>
+        </div>
+        <div class="form-item">
+          <label for="year">YEAR</label>
+          <input
+            type="number"
+            class="date-input"
+            id="year"
+            min="1600"
+            data-max=""
+            placeholder="YYYY"
+          />
+          <p class="error-year error"></p>
+        </div>
+      </form>
+
+      <div class="vertical-divider">
+        <hr class="first-arrow" />
+        <div class="down-arrow display-result">
+          <img
+            src="./assets/images/icon-arrow.svg"
+            class="arrow"
+            alt="down arrow"
+          />
+        </div>
+        <hr class="second-arrow" />
+      </div>
+
+      <div class="result">
+        <p class="year-output">
+          <span class="number year-result" data-val-year="0">-- </span>
+          <span class="year-text">year</span>
+        </p>
+        <p class="month-output">
+          <span class="number month-result" data-val-month="0">--</span>
+          <span class="month-text">month</span>
+        </p>
+        <p class="day-output">
+          <span class="number day-result" data-val-day="0">--</span>
+          <span class="day-text">day</span>
+        </p>
+      </div>
+    </main>
+
+    <div class="history">
+      <header>
+        <h2>History</h2>
+        <div class="close-history">
+          <i class="fa-solid fa-xmark fa-2xl"></i>
+        </div>
+      </header>
+      <div class="history-content">
+        <div class="histories"></div>
+        
+      </div>
+    </div>
+
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by
+      <a href="https://www.twitter.com/oyeinbomo" target="_blank">Oyeinbomo Opuene</a>.
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
