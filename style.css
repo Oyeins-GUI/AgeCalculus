@@ -31,7 +31,7 @@ hr {
 body {
   display: grid;
   place-items: center;
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--off-white);
   font-family: "Poppins", sans-serif;
   position: relative;
@@ -144,8 +144,8 @@ input:focus-visible {
   position: absolute;
   background: whitesmoke;
   color: var(--off-black);
-  min-height: 100vh;
-  width: 100vw;
+  min-height: 100dvh;
+  width: 100dvw;
   padding: 20px 15px;
   right: 100%;
   transition: right 0.3s ease-in-out;
