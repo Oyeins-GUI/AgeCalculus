@@ -30,10 +30,6 @@ const historyContainer = document.querySelector(".history-content");
 yearInput.dataset.max = today.getFullYear();
 yearInput.max = today.getFullYear();
 
-
-
-
-
 hamburgerIcon.addEventListener("click", () => {
   historyMenu.classList.add("show");
 });
@@ -41,43 +37,15 @@ closeIcon.addEventListener("click", () => {
   historyMenu.classList.remove("show");
 });
 showResult.addEventListener("click", displayAge);
-document.addEventListener("keyup", function (e) { 
+document.addEventListener("keyup", function (e) {
   if (e.keyCode == 13) {
     displayAge();
   }
 });
 
-
-if(localStorage.length > 0) {
-    
-    let retrievedDate = JSON.parse(localStorage.getItem("dates"));
-    historyContainer.innerHTML = ""; // Clear history container
-  
-    retrievedDate.forEach((date, index) => {
-      const prevDate = date[0].split(", ");
-      const currentDate = date[1].split(", ");
-  
-      const li = document.createElement("li");
-      li.classList.add("histories");
-  
-      const dateParagraph = document.createElement("p");
-      dateParagraph.textContent = `${prevDate[2]}/${prevDate[1]}/${prevDate[0]}`;
-      li.appendChild(dateParagraph);
-  
-      const ageParagraph = document.createElement("p");
-      ageParagraph.textContent = `${currentDate[0]}y, ${currentDate[1]}m, ${currentDate[2]}d`;
-      li.appendChild(ageParagraph);
-  
-      const deleteButton = document.createElement("i");
-      deleteButton.classList.add("fa-solid", "fa-trash", "fa-lg");
-      deleteButton.dataset.index = index;
-      deleteButton.addEventListener("click", deleteHistory);
-      li.appendChild(deleteButton);
-  
-      historyContainer.appendChild(li);
-    });
-  }
-
+if (localStorage.length > 0) {
+  getDateAndAddToHistory();
+}
 
 function getUserInput() {
   const valueOfDay = Number(dayInput.value);
@@ -89,13 +57,17 @@ function getUserInput() {
   return { valueOfDay, valueOfMonth, valueOfYear };
 }
 
+if (localStorage.getItem("dates") == "[]") {
+  dateHistories = [];
+} else {
+  dateHistories = JSON.parse(localStorage.getItem("dates"));
+}
+
 function calculateAge() {
   const { valueOfDay, valueOfMonth, valueOfYear } = getUserInput();
   let birthDate = new Date(`${valueOfYear}, ${valueOfMonth}, ${valueOfDay}`);
+  let years, months, days;
   let dateHistory = [];
-  let years;
-  let months;
-  let days;
 
   if (
     today.getMonth() > birthDate.getMonth() ||
@@ -125,15 +97,10 @@ function calculateAge() {
   dateHistory.push(`${valueOfYear}, ${valueOfMonth}, ${valueOfDay}`);
   dateHistory.push(`${years}, ${months}, ${days}`);
   dateHistories.push(dateHistory);
-  console.log("History");
-  console.log(dateHistory);
-  console.log("Histories");
-  console.log(dateHistories);
 
   if (storageAvailable("localStorage")) {
     localStorage.setItem("dates", JSON.stringify(dateHistories));
     dateHistory = [];
-
   } else {
     alert("Couldn't add data to history");
   }
@@ -201,48 +168,45 @@ function displayAge() {
   }
 }
 
-// ...
-
 function getDateAndAddToHistory() {
   let retrievedDate = JSON.parse(localStorage.getItem("dates"));
-  historyContainer.innerHTML = ""; // Clear history container
+  historyContainer.innerHTML = "";
 
   retrievedDate.forEach((date, index) => {
     const prevDate = date[0].split(", ");
     const currentDate = date[1].split(", ");
-    historyContainer.innerHTML += `
-      <div class="histories">
-        <p>${prevDate[2]}/${prevDate[1]}/${prevDate[0]}</p>
-        <p>${currentDate[0]}y, ${currentDate[1]}m, ${currentDate[2]}d</p>
-        <i class="fa-solid fa-trash fa-lg" data-index="${index}"></i>
-      </div>
-    `;
-  });
 
-  // Add event listeners to delete buttons
-  const deleteButtons = document.querySelectorAll(".fa-trash");
-  deleteButtons.forEach((button) => {
-    button.addEventListener("click", deleteHistory);
+    const li = document.createElement("li");
+    li.classList.add("histories");
+
+    const dateParagraph = document.createElement("p");
+    dateParagraph.textContent = `${prevDate[2]}/${prevDate[1]}/${prevDate[0]}`;
+    li.appendChild(dateParagraph);
+
+    const ageParagraph = document.createElement("p");
+    ageParagraph.textContent = `${currentDate[0]}y, ${currentDate[1]}m, ${currentDate[2]}d`;
+    li.appendChild(ageParagraph);
+
+    const deleteButton = document.createElement("i");
+    deleteButton.classList.add("fa-solid", "fa-trash", "fa-lg");
+    deleteButton.dataset.index = index;
+    deleteButton.addEventListener("click", deleteHistory);
+    li.appendChild(deleteButton);
+
+    historyContainer.appendChild(li);
   });
 }
 
 function deleteHistory(event) {
   const index = event.target.dataset.index;
 
-  // Remove the element from the UI
   const historyItem = event.target.parentElement;
   historyItem.remove();
 
-  // Remove the element from local storage
   let retrievedDate = JSON.parse(localStorage.getItem("dates"));
   retrievedDate.splice(index, 1);
   localStorage.setItem("dates", JSON.stringify(retrievedDate));
 }
-
-// ...
-
-
-
 
 function storageAvailable(type) {
   let storage;
