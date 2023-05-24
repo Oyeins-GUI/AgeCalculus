@@ -57,17 +57,17 @@ function getUserInput() {
   return { valueOfDay, valueOfMonth, valueOfYear };
 }
 
-if (localStorage.getItem("dates") == "[]") {
-  dateHistories = [];
-} else {
-  dateHistories = JSON.parse(localStorage.getItem("dates"));
-}
-
 function calculateAge() {
   const { valueOfDay, valueOfMonth, valueOfYear } = getUserInput();
   let birthDate = new Date(`${valueOfYear}, ${valueOfMonth}, ${valueOfDay}`);
   let years, months, days;
   let dateHistory = [];
+
+  if (localStorage.getItem("dates") == "[]") {
+    dateHistories = [];
+  } else {
+    dateHistories = JSON.parse(localStorage.getItem("dates"));
+  }
 
   if (
     today.getMonth() > birthDate.getMonth() ||
