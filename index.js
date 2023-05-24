@@ -3,7 +3,13 @@ let interval = 1000;
 let startValueYear = -1;
 let startValueMonth = -1;
 let startValueDay = -1;
-let dateHistories = [];
+let dateHistories;
+
+if (localStorage.getItem("dates") == null) {
+  dateHistories = [];
+} else {
+  dateHistories = JSON.parse(localStorage.getItem("dates"));
+}
 
 const today = new Date();
 const dayInput = document.getElementById("day");
@@ -63,11 +69,11 @@ function calculateAge() {
   let years, months, days;
   let dateHistory = [];
 
-  if (localStorage.getItem("dates") == "[]") {
-    dateHistories = [];
-  } else {
-    dateHistories = JSON.parse(localStorage.getItem("dates"));
-  }
+  // if (localStorage.getItem("dates") == "[]") {
+  //   dateHistories = [];
+  // } else {
+  //   dateHistories = JSON.parse(localStorage.getItem("dates"));
+  // }
 
   if (
     today.getMonth() > birthDate.getMonth() ||
