@@ -115,9 +115,9 @@ function displayAge() {
         // let endValueMonth = months;
         // let endValueDay = days;
 
-        let durationYear = Math.floor(interval / endValueYear);
-        let durationMonth = Math.floor(interval / endValueMonth);
-        let durationDay = Math.floor(interval / endValueDay);
+        // let durationYear = Math.floor(interval / endValueYear);
+        // let durationMonth = Math.floor(interval / endValueMonth);
+        // let durationDay = Math.floor(interval / endValueDay);
 
         if (days > 1) {
             dayText.textContent = "days";
