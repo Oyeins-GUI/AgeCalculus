@@ -119,6 +119,8 @@ function displayAge() {
         let durationMonth = Math.floor(interval / endValueMonth);
         let durationDay = Math.floor(interval / endValueDay);
 
+        console.log(startValueDay === endValueDay);
+
         if (days > 1) {
             dayText.textContent = "days";
         } else {
@@ -135,32 +137,34 @@ function displayAge() {
             yearText.textContent = "year";
         }
 
-        let counterYear = setInterval(() => {
-            startValueYear += 1;
+        // let counterYear = setInterval(function() {
+            // startValueYear += 1;
             yearResult.textContent = endValueYear;
-            if (startValueYear === endValueYear) {
-                clearInterval(counterYear);
-                startValueYear = -1;
-            }
-        }, durationYear);
+            // if (startValueYear === endValueYear) {
+                // clearInterval(counterYear);
+                // startValueYear = -1;
+            // }
+        // }, durationYear);
 
-        let counterMonth = setInterval(() => {
-            startValueMonth += 1;
+        
+        // let counterMonth = setInterval(function() {
+            // startValueMonth += 1;
             monthResult.textContent = endValueMonth;
-            if (startValueMonth === endValueMonth) {
-                clearInterval(counterMonth);
-                startValueMonth = -1;
-            }
-        }, durationMonth);
+            // console.log(startValueMonth === endValueMonth);
+            // if (startValueMonth === endValueMonth) {
+                // clearInterval(counterMonth);
+                // startValueMonth = -1;
+            // }
+        // }, durationMonth);
 
-        let counterDay = setInterval(() => {
-            startValueDay += 1;
+        // let counterDay = setInterval(function() {
+            // startValueDay += 1;
             dayResult.textContent = endValueDay;
-            if (startValueDay === endValueDay) {
-                clearInterval(counterDay);
-                startValueDay = -1;
-            }
-        }, durationDay);
+            // if (startValueDay === endValueDay) {
+                // clearInterval(counterDay);
+                // startValueDay = -1;
+            // }
+        // }, durationDay);
 
         getDateAndAddToHistory(dateHistories);
     }
