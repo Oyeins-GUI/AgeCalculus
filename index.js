@@ -111,15 +111,13 @@ function calculateAge() {
 function displayAge() {
     if (isValid) {
         const { days, months, years } = calculateAge();
-        let endValueYear = years;
-        let endValueMonth = months;
-        let endValueDay = days;
+        // let endValueYear = years;
+        // let endValueMonth = months;
+        // let endValueDay = days;
 
         let durationYear = Math.floor(interval / endValueYear);
         let durationMonth = Math.floor(interval / endValueMonth);
         let durationDay = Math.floor(interval / endValueDay);
-
-        console.log(startValueDay === endValueDay);
 
         if (days > 1) {
             dayText.textContent = "days";
@@ -139,7 +137,7 @@ function displayAge() {
 
         // let counterYear = setInterval(function() {
             // startValueYear += 1;
-            yearResult.textContent = endValueYear;
+            yearResult.textContent = years;
             // if (startValueYear === endValueYear) {
                 // clearInterval(counterYear);
                 // startValueYear = -1;
@@ -149,7 +147,7 @@ function displayAge() {
         
         // let counterMonth = setInterval(function() {
             // startValueMonth += 1;
-            monthResult.textContent = endValueMonth;
+            monthResult.textContent = months;
             // console.log(startValueMonth === endValueMonth);
             // if (startValueMonth === endValueMonth) {
                 // clearInterval(counterMonth);
@@ -159,7 +157,7 @@ function displayAge() {
 
         // let counterDay = setInterval(function() {
             // startValueDay += 1;
-            dayResult.textContent = endValueDay;
+            dayResult.textContent = days;
             // if (startValueDay === endValueDay) {
                 // clearInterval(counterDay);
                 // startValueDay = -1;
