@@ -137,7 +137,7 @@ function displayAge() {
 
       let counterYear = setInterval(function () {
          startValueYear += 1;
-         yearResult.textContent = years;
+         yearResult.textContent = startValueYear;
          if (startValueYear === endValueYear) {
             clearInterval(counterYear);
             startValueYear = -1;
@@ -146,7 +146,7 @@ function displayAge() {
 
       let counterMonth = setInterval(function () {
          startValueMonth += 1;
-         monthResult.textContent = months;
+         monthResult.textContent = startValueMonth;
          console.log(startValueMonth === endValueMonth);
          if (startValueMonth === endValueMonth) {
             clearInterval(counterMonth);
@@ -156,7 +156,7 @@ function displayAge() {
 
       let counterDay = setInterval(function () {
          startValueDay += 1;
-         dayResult.textContent = days;
+         dayResult.textContent = startValueDay;
          if (startValueDay === endValueDay) {
             clearInterval(counterDay);
             startValueDay = -1;
