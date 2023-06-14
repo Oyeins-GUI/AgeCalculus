@@ -62,7 +62,7 @@ function getUserInput() {
 
 function calculateAge() {
    const { valueOfDay, valueOfMonth, valueOfYear } = getUserInput();
-   let birthDate = Date.parse(`${valueOfYear}-${valueOfMonth}-${valueOfDay}`);
+   let birthDate = Date.parse(`${valueOfMonth}/${valueOfDay}/${valueOfYear}`);
    let birthDateObj = new Date(birthDate);
    let years, months, days;
    let dateHistory = [];
