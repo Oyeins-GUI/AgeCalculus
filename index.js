@@ -1,4 +1,6 @@
-let isValid = true;
+let isValidYear = false;
+let isValidMonth = false;
+let isValidDay = false;
 let interval = 1000;
 let startValueYear = -1;
 let startValueMonth = -1;
@@ -13,6 +15,7 @@ const allInputs = document.querySelectorAll(".date-input");
 const errorDay = document.querySelector(".error-day");
 const errorMonth = document.querySelector(".error-month");
 const errorYear = document.querySelector(".error-year");
+const allErrorElem = document.querySelectorAll(".error");
 const yearResult = document.querySelector(".year-result");
 const monthResult = document.querySelector(".month-result");
 const dayResult = document.querySelector(".day-result");
@@ -52,6 +55,58 @@ function eventListeners() {
 }
 eventListeners();
 
+dayInput.addEventListener("input", (e) => {
+   if (Number(dayInput.value) > 31) {
+      isValidDay = false;
+      errorDay.textContent = "Invalid input";
+      return;
+   } else {
+      errorDay.textContent = "";
+      isValidDay = true;
+   }
+   if (Number(dayInput.value) <= 0) {
+      isValidDay = false;
+      errorDay.textContent = "Invalid input";
+      return;
+   } else {
+      errorDay.textContent = "";
+   }
+});
+monthInput.addEventListener("input", (e) => {
+   if (Number(monthInput.value) > 12) {
+      isValidMonth = false;
+      errorMonth.textContent = "Invalid input";
+      return;
+   } else {
+      errorMonth.textContent = "";
+      isValidMonth = true;
+   }
+   if (Number(monthInput.value) <= 0) {
+      isValidMonth = false;
+      errorMonth.textContent = "Invalid input";
+      return;
+   } else {
+      errorMonth.textContent = "";
+   }
+});
+yearInput.addEventListener("input", (e) => {
+   if (Number(yearInput.value) < 1400) {
+      isValidYear = false;
+      errorYear.textContent = "Invalid input";
+      return;
+   } else {
+      errorYear.textContent = "";
+      isValidYear = true;
+   }
+   if (Number(yearInput.value) <= 0) {
+      isValidYear = false;
+      errorYear.textContent = "Invalid input";
+      return;
+   } else {
+      errorYear.textContent = "";
+   }
+});
+
 function getUserInput() {
    const valueOfDay = Number(dayInput.value);
    const valueOfMonth = Number(monthInput.value);
@@ -72,44 +127,46 @@ function calculateAge() {
       (today.getMonth() === birthDateObj.getMonth() &&
          today.getDate() >= birthDateObj.getDate())
    ) {
-      years = today.getFullYear() - birthDateObj.getFullYear();
+      years = Math.abs(today.getFullYear() - birthDateObj.getFullYear());
    } else {
-      years = today.getFullYear() - birthDateObj.getFullYear() - 1;
+      years = Math.abs(today.getFullYear() - birthDateObj.getFullYear() - 1);
    }
 
    if (today.getDate() >= birthDateObj.getDate()) {
-      months = today.getMonth() - birthDateObj.getMonth();
+      months = Math.abs(today.getMonth() - birthDateObj.getMonth());
    } else if (today.getDate() < birthDateObj.getDate()) {
-      months = today.getMonth() - birthDateObj.getMonth() - 1;
+      months = Math.abs(today.getMonth() - birthDateObj.getMonth() - 1);
    }
    months = months < 0 ? months + 12 : months;
 
    let monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
    if (today.getDate() >= birthDateObj.getDate()) {
-      days = today.getDate() - birthDateObj.getDate();
+      days = Math.abs(today.getDate() - birthDateObj.getDate());
    } else {
-      days =
+      days = Math.abs(
          today.getDate() -
-         birthDateObj.getDate() +
-         monthDays[birthDateObj.getMonth()];
+            birthDateObj.getDate() +
+            monthDays[birthDateObj.getMonth()]
+      );
    }
+   if (isValidYear && isValidMonth && isValidDay) {
+      dateHistory.push(`${valueOfYear}, ${valueOfMonth}, ${valueOfDay}`);
+      dateHistory.push(`${years}, ${months}, ${days}`);
+      dateHistories.push(dateHistory);
 
-   dateHistory.push(`${valueOfYear}, ${valueOfMonth}, ${valueOfDay}`);
-   dateHistory.push(`${years}, ${months}, ${days}`);
-   dateHistories.push(dateHistory);
-
-   if (storageAvailable("localStorage")) {
-      localStorage.setItem("dates", JSON.stringify(dateHistories));
-      dateHistory = [];
-   } else {
-      alert("Couldn't add data to history");
+      if (storageAvailable("localStorage")) {
+         localStorage.setItem("dates", JSON.stringify(dateHistories));
+         dateHistory = [];
+      } else {
+         alert("Couldn't add data to history");
+      }
    }
 
    return { years, months, days };
 }
 
 function displayAge() {
-   if (isValid) {
+   if (isValidYear && isValidMonth && isValidDay) {
       const { days, months, years } = calculateAge();
       let endValueYear = years;
       let endValueMonth = months;
@@ -147,7 +204,6 @@ function displayAge() {
       let counterMonth = setInterval(function () {
          startValueMonth += 1;
          monthResult.textContent = startValueMonth;
-         console.log(startValueMonth === endValueMonth);
          if (startValueMonth === endValueMonth) {
             clearInterval(counterMonth);
             startValueMonth = -1;
