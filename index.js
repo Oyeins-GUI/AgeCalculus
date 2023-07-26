@@ -286,3 +286,12 @@ function storageAvailable(type) {
       );
    }
 }
+
+if ("serviceWorker" in navigator) {
+   window.addEventListener("load", () => {
+      navigator.serviceWorker
+         .register("/serviceworker.js")
+         .then((res) => console.log("service worker registered"))
+         .catch((err) => console.error("service worker not registered", err));
+   });
+}
